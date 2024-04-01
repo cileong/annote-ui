@@ -16,17 +16,17 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QIcon, QImage, QKeySequence, QLinearGradient,
     QPainter, QPalette, QPixmap, QRadialGradient,
     QTransform)
-from PySide6.QtWidgets import (QApplication, QComboBox, QFormLayout, QFrame,
-    QGroupBox, QHBoxLayout, QLabel, QMainWindow,
-    QMenu, QMenuBar, QPlainTextEdit, QPushButton,
-    QSizePolicy, QSpacerItem, QStatusBar, QVBoxLayout,
-    QWidget)
+from PySide6.QtWidgets import (QApplication, QCheckBox, QComboBox, QFormLayout,
+    QFrame, QGroupBox, QHBoxLayout, QLabel,
+    QMainWindow, QMenu, QMenuBar, QPlainTextEdit,
+    QPushButton, QSizePolicy, QSpacerItem, QStatusBar,
+    QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(995, 715)
+        MainWindow.resize(995, 837)
         self.openAction = QAction(MainWindow)
         self.openAction.setObjectName(u"openAction")
         self.actionSave = QAction(MainWindow)
@@ -149,48 +149,55 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.line_2)
 
-        self.hoiEdit = QPlainTextEdit(self.groupBox)
-        self.hoiEdit.setObjectName(u"hoiEdit")
-        self.hoiEdit.setTabChangesFocus(True)
-        self.hoiEdit.setBackgroundVisible(False)
-
-        self.verticalLayout.addWidget(self.hoiEdit)
-
-        self.hoEdit = QPlainTextEdit(self.groupBox)
-        self.hoEdit.setObjectName(u"hoEdit")
-        self.hoEdit.setTabChangesFocus(True)
-
-        self.verticalLayout.addWidget(self.hoEdit)
-
-        self.hiEdit = QPlainTextEdit(self.groupBox)
-        self.hiEdit.setObjectName(u"hiEdit")
-        self.hiEdit.setTabChangesFocus(True)
-
-        self.verticalLayout.addWidget(self.hiEdit)
-
-        self.oiEdit = QPlainTextEdit(self.groupBox)
-        self.oiEdit.setObjectName(u"oiEdit")
-        self.oiEdit.setTabChangesFocus(True)
-
-        self.verticalLayout.addWidget(self.oiEdit)
-
+        self.verticalLayout_3 = QVBoxLayout()
+        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        self.horizontalLayout_6 = QHBoxLayout()
+        self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
         self.hEdit = QPlainTextEdit(self.groupBox)
         self.hEdit.setObjectName(u"hEdit")
-        self.hEdit.setTabChangesFocus(True)
 
-        self.verticalLayout.addWidget(self.hEdit)
+        self.horizontalLayout_6.addWidget(self.hEdit)
 
+        self.isGranularHuman = QCheckBox(self.groupBox)
+        self.isGranularHuman.setObjectName(u"isGranularHuman")
+
+        self.horizontalLayout_6.addWidget(self.isGranularHuman)
+
+
+        self.verticalLayout_3.addLayout(self.horizontalLayout_6)
+
+        self.horizontalLayout = QHBoxLayout()
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.oEdit = QPlainTextEdit(self.groupBox)
         self.oEdit.setObjectName(u"oEdit")
-        self.oEdit.setTabChangesFocus(True)
 
-        self.verticalLayout.addWidget(self.oEdit)
+        self.horizontalLayout.addWidget(self.oEdit)
 
+        self.isGranularObject = QCheckBox(self.groupBox)
+        self.isGranularObject.setObjectName(u"isGranularObject")
+
+        self.horizontalLayout.addWidget(self.isGranularObject)
+
+
+        self.verticalLayout_3.addLayout(self.horizontalLayout)
+
+        self.horizontalLayout_5 = QHBoxLayout()
+        self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
         self.iEdit = QPlainTextEdit(self.groupBox)
         self.iEdit.setObjectName(u"iEdit")
-        self.iEdit.setTabChangesFocus(True)
 
-        self.verticalLayout.addWidget(self.iEdit)
+        self.horizontalLayout_5.addWidget(self.iEdit)
+
+        self.isGranularInteraction = QCheckBox(self.groupBox)
+        self.isGranularInteraction.setObjectName(u"isGranularInteraction")
+
+        self.horizontalLayout_5.addWidget(self.isGranularInteraction)
+
+
+        self.verticalLayout_3.addLayout(self.horizontalLayout_5)
+
+
+        self.verticalLayout.addLayout(self.verticalLayout_3)
 
 
         self.verticalLayout_2.addWidget(self.groupBox)
@@ -215,21 +222,14 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 995, 22))
+        self.menubar.setGeometry(QRect(0, 0, 995, 37))
         self.fileMenu = QMenu(self.menubar)
         self.fileMenu.setObjectName(u"fileMenu")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
         MainWindow.setStatusBar(self.statusbar)
-        QWidget.setTabOrder(self.objectClassBox, self.hoiEdit)
-        QWidget.setTabOrder(self.hoiEdit, self.hoEdit)
-        QWidget.setTabOrder(self.hoEdit, self.hiEdit)
-        QWidget.setTabOrder(self.hiEdit, self.oiEdit)
-        QWidget.setTabOrder(self.oiEdit, self.hEdit)
-        QWidget.setTabOrder(self.hEdit, self.oEdit)
-        QWidget.setTabOrder(self.oEdit, self.iEdit)
-        QWidget.setTabOrder(self.iEdit, self.humanModeButton)
+        QWidget.setTabOrder(self.objectClassBox, self.humanModeButton)
         QWidget.setTabOrder(self.humanModeButton, self.objectModeButton)
         QWidget.setTabOrder(self.objectModeButton, self.previousButton)
         QWidget.setTabOrder(self.previousButton, self.deleteButton)
@@ -275,13 +275,12 @@ class Ui_MainWindow(object):
         self.nextButton.setText(QCoreApplication.translate("MainWindow", u"Next", None))
         self.groupBox.setTitle(QCoreApplication.translate("MainWindow", u"Captions", None))
         self.objectClassLabel.setText(QCoreApplication.translate("MainWindow", u"Object class:", None))
-        self.hoiEdit.setPlaceholderText(QCoreApplication.translate("MainWindow", u"human + object + interaction", None))
-        self.hoEdit.setPlaceholderText(QCoreApplication.translate("MainWindow", u"human + object", None))
-        self.hiEdit.setPlaceholderText(QCoreApplication.translate("MainWindow", u"human + interaction", None))
-        self.oiEdit.setPlaceholderText(QCoreApplication.translate("MainWindow", u"object + interaction", None))
         self.hEdit.setPlaceholderText(QCoreApplication.translate("MainWindow", u"human", None))
+        self.isGranularHuman.setText("")
         self.oEdit.setPlaceholderText(QCoreApplication.translate("MainWindow", u"object", None))
+        self.isGranularObject.setText("")
         self.iEdit.setPlaceholderText(QCoreApplication.translate("MainWindow", u"interaction", None))
+        self.isGranularInteraction.setText("")
         self.submitInstanceButton.setText(QCoreApplication.translate("MainWindow", u"Submit instance", None))
         self.nextImageButton.setText(QCoreApplication.translate("MainWindow", u"Next image", None))
         self.fileMenu.setTitle(QCoreApplication.translate("MainWindow", u"&File", None))

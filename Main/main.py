@@ -8,7 +8,7 @@ from PySide6 import QtGui as qtg
 
 from Ui.main_window import Ui_MainWindow
 from image_display_label import ImageDisplayLabel, LabelMode
-from models import *
+from new_models import *
 from nav_list import NavList
 
 
@@ -146,23 +146,6 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
     def onNextButtonClicked(self) -> None:
         self.bboxList.pointerForward()
 
-    def getCaptionFull(self) -> str:
-        return self.hoiEdit.toPlainText()
-
-    def getCaptionMasked(self) -> list[str]:
-        textEdits = [
-            self.hoEdit,
-            self.hiEdit,
-            self.oiEdit,
-            self.hEdit,
-            self.oEdit,
-            self.iEdit,
-        ]
-        return [te.toPlainText() for te in textEdits]
-
-    def getCaptionAll(self) -> list[str]:
-        return [self.getCaptionFull(), *self.getCaptionMasked()]
-
     @qtc.Slot()
     def onSubmitInstanceButtonClicked(self) -> None:
         # TODO: Save current caption annotation.
@@ -170,11 +153,19 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
 
         self.datasetAnnotations.append(
             Annotation(
+                annotation_id=0,
                 image_filename=self.imageFilepaths[self.imagePointer].name,
                 object_id=self.objectClassBox.currentIndex(),
-                caption_all=self.getCaptionAll(),
-                caption_full=self.getCaptionFull(),
-                caption_masked=self.getCaptionMasked(),
+                prompt=Prompt(
+                    human=self.hEdit.toPlainText(),
+                    object_=self.oEdit.toPlainText(),
+                    interaction=self.iEdit.toPlainText(),
+                    is_granular=PromptGranularityFlags(
+                        human=self.isGranularHuman.isChecked(),
+                        object_=self.isGranularObject.isChecked(),
+                        interaction=self.isGranularInteraction.isChecked(),
+                    )
+                ),
                 bbox_human=bboxHuman,
                 bbox_object=bboxObject,
             )
@@ -184,16 +175,22 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
         self.bboxList.clear()
 
         textEdits = [
-            self.hoiEdit,
-            self.hoEdit,
-            self.hiEdit,
-            self.oiEdit,
             self.hEdit,
             self.oEdit,
             self.iEdit,
         ]
+
+        checkboxes = [
+            self.isGranularHuman,
+            self.isGranularObject,
+            self.isGranularInteraction,
+        ]
+
         for te in textEdits:
             te.clear()
+
+        for checkbox in checkboxes:
+            checkbox.setCheckState(qtc.Qt.CheckState.Unchecked)
 
     @qtc.Slot()
     def onNextImageButtonClicked(self) -> None:
@@ -202,16 +199,22 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
         self.bboxList.clear()
 
         textEdits = [
-            self.hoiEdit,
-            self.hoEdit,
-            self.hiEdit,
-            self.oiEdit,
             self.hEdit,
             self.oEdit,
             self.iEdit,
         ]
+
         for te in textEdits:
             te.clear()
+
+        checkboxes = [
+            self.isGranularHuman,
+            self.isGranularObject,
+            self.isGranularInteraction,
+        ]
+
+        for checkbox in checkboxes:
+            checkbox.setCheckState(qtc.Qt.CheckState.Unchecked)
 
     @qtc.Slot(Bbox)
     def onBboxHumanUpdated(self, bbox: Bbox) -> None:

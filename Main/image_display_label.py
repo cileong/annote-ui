@@ -1,4 +1,4 @@
-from models import *
+from new_models import *
 
 import sys
 from enum import Enum, auto
