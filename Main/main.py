@@ -18,10 +18,11 @@ class MainWindow(qtw.QMainWindow, Ui_MainWindow):
     imageChange = qtc.Signal()
 
     objectClasses = [
-        "bicycle",
-        "elephant",
-        "horse",
-        "motorcycle",
+        'airplane', 'bed', 'bench', 'bicycle', 'boat',
+        'book', 'cake', 'cat', 'chair', 'couch',
+        'cow', 'dog', 'elephant', 'giraffe', 'horse',
+        'laptop', 'motorcycle', 'sheep', 'skateboard', 'snowboard',
+        'suitcase', 'teddy bear', 'tennis racket', 'umbrella', 'zebra',
     ]
 
     def __init__(self) -> None:
